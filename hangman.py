@@ -1,6 +1,8 @@
-#Logan Saruwatari
 #Assignment 1 Hangman
-#Simple command line hangman game.
+#CS310 Python
+#By: Logan Saruwatari
+#Date: 1/21/2016
+#Copyright MIT license
 
 from random import randint
 from os import system
@@ -22,7 +24,7 @@ class Hangman(object):
 
 	def clearScreen(self):
 		system('cls' if osName == 'nt' else 'clear') 
-		# cross platform clearing of terminal. nt is apparently windows
+		# cross platform clearing of terminal. nt is apparently windows clear and cls are system calls
 
 	def resetWords(self):
 		self.words = self.usedWords
@@ -56,7 +58,7 @@ class Hangman(object):
 		return indexArr
 
 	def isValid(self, guess):
-		if len (guess) == 1: # only one char was entered
+		if len(guess) == 1: # only one char was entered
 			if guess.isalpha(): # is an alpha char
 				return True
 			else: return False # something weird like a number
@@ -79,7 +81,7 @@ class Hangman(object):
 			self.start()
 
 	def displayResults(self, errorMsg=''):
-		bottomDashes = ''
+		bottomDashes = '_ '*len(self.currentWord) # I learned this in class!
 		prettyguessed = ''
 
 
@@ -90,9 +92,6 @@ class Hangman(object):
 
 		for i in self.correctIndecies:
 			self.solutionArr[i] = self.currentWord[i]
-
-		for i in range(len(self.currentWord)):
-			bottomDashes+= '_ '
 
 		print(' '.join(self.solutionArr)) #print correctly guessed letters
 		print(bottomDashes,"\r\n\r\n")
@@ -147,13 +146,20 @@ class Hangman(object):
 		self.displayResults()
 		self.getInput()
 
+### Main Entry ###
 
+#words = ["stuff", "things", "python", "keyboard", "laptop", "google", "linux", "visualization", "terminal", "files", "debian", "apache", "this", "iterations", "science", "hangman", "computation", "broncos", "mouse", "document"]
+#words can either be used as a list or a file to be read in.
 
+inFile = open("Hangman_wordbank", 'r')
+words = inFile.read() 
+words = words.split(', ') # handle csv format
+if not inFile.closed: # if the file is open close that bad boy
+	inFile.close()
 
-
-### start ###
-words = ["stuff", "things", "python", "keyboard", "laptop", "google", "linux", "visualization", "terminal", "files", "debian", "apache", "this", "iterations", "science", "hangman", "computation", "broncos", "mouse", "document"]
 
 game = Hangman(words)
+print(game) #this actually does something
+
 game.clearScreen()
 game.start()
