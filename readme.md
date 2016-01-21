@@ -1,0 +1,1 @@
+simple console based hangman game. hangman.py contains all code/libraries to run. This was developed for python 3.
