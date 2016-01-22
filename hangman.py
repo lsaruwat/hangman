@@ -152,7 +152,7 @@ class Hangman(object):
 #words = ["stuff", "things", "python", "keyboard", "laptop", "google", "linux", "visualization", "terminal", "files", "debian", "apache", "this", "iterations", "science", "hangman", "computation", "broncos", "mouse", "document"]
 #words can either be used as a list or a file to be read in.
 
-inFile = open("Hangman_wordbank", 'r')
+inFile = open("Hangman_wordbank.txt", 'r')
 words = inFile.read() 
 words = words.split(', ') # handle csv format
 if not inFile.closed: # if the file is open close that bad boy
