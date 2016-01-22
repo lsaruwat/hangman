@@ -70,15 +70,16 @@ class Hangman(object):
 	def gameOver(self, endStatus):
 		if endStatus == 'lost':
 			print("Game Over. The word was {}".format(self.currentWord))
+			print("Final score: {}".format(self.wins))
 
 		elif endStatus == 'won':
 			self.wins +=1
 			print("Great job! You have guessed {} words correctly".format(self.wins))
 		
-		replay = input("Play Again? y/n\r\n")
-		
-		if replay != 'n': # if the user input is anything other than n start over
-			self.start()
+			replay = input("Play Again? y/n\r\n")
+			
+			if replay != 'n': # if the user input is anything other than n start over
+				self.start()
 
 	def displayResults(self, errorMsg=''):
 		bottomDashes = '_ '*len(self.currentWord) # I learned this in class!
@@ -123,18 +124,18 @@ class Hangman(object):
 			self.gameOver('won')
 		else: self.gameOver('lost')
 
-	def getInput(self, invalidMessage="Input is invalid! Please enter only one letter"):
+	def getInput(self, invalidMessage="Input is invalid! Please enter only one letter\r\n"):
 		guess = input("Please guess a letter\r\n").lower() # prompt user and convert it to lowercase as case doesn't matter
 		self.clearScreen()
 		if self.isValid(guess):
 			if self.alreadyGuessed(guess):
-				self.displayResults(errorMsg="That letter has already been guessed!")
+				self.displayResults(errorMsg="That letter has already been guessed!\r\n")
 				self.getInput() # input is valid but already guessed
 
 			else: self.processInput(guess)
 		else:
 			self.displayResults(errorMsg=invalidMessage) # inform the user that they are stupid
-			self.getInput(invalidMessage="Sorry you're having problems. Please try again.")
+			self.getInput(invalidMessage="Sorry you're having problems. Please try again.\r\n")
 
 	def start(self):
 		self.guessedChars = ''
@@ -159,7 +160,7 @@ if not inFile.closed: # if the file is open close that bad boy
 
 
 game = Hangman(words)
-print(game) #this actually does something
+print(game) #this shows what I think is the memory location of my class, A testament to the power of print in python 3.4
 
 game.clearScreen()
 game.start()
